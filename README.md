@@ -1,13 +1,14 @@
 template1
 =========
-On the server side
+<strong>On the server side</strong>
 <ul>
  <li>NodeJS</li>
  <li>Express3</li>
+ <li>MongoDB</li>
  <li>Handlebars</li>
  <li>Grunt</li>
 </ul>
-On the client side
+<strong>On the client side</strong>
 <ul>
  <li>BackboneJS</li>
  <li>RequireJS</li>
