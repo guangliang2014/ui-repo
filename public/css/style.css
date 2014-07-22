@@ -1,102 +1,10 @@
+/* line 1, ../sass/style.scss */
 a {
-  text-decoration: none;	
-}  
+  text-decoration: none;
+}
 
-
+/* line 6, ../sass/style.scss */
 .title {
-	width: 100%;
-	border-bottom: 1px solid rgb(150,150,150); 
-	color: rgb(150,150,150);   
-}
-
-.container {
-	padding-left: 15px;
-	padding-right: 15px;
-}
-
-
-.room-slide-container {
-	width: 1200px !important;
-	height: 620px !important;
-	position: relative;
-	top: 0px;
-	left: 0px;
-}
-.slide {
-	width: 100% !important;
-}
-.slide-img {
-	width: 100% !important;
-	height: 620px;
-}
-.slide-link-container {
-    width: 330px;
-    height: 110px;
-    padding: 0px;
-    margin: 0px;
-    display: inline-table;
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    z-index: 20000;
-    
-}
-.slide-link {
-	width: 110px !important;
-	height: 110px !important;
-	background-color: rgb(26,154,197);
-	color: white;
-	display: inline-block;
-	cursor: pointer;
-	padding-top: 10px;
-	margin: 0px;
-}
-.slide-link:hover {
-	background-color: rgb(26,154,197);
-}
-
-.selected {
-	background-color: white;
-	color: rgb(102,102,102);
-
-}
-.slide-icon {
-	font-size: 40px;
-	margin-bottom: 0px;
-}
-.slide-link-divider {
-	position: absolute;
-	width: 1px;
-	border-left: 1px solid rgb(73,175,204);
-    height: 80px;
-    right: 0px;
-    top: 15px;
-}
-
-.orbit-container .orbit-prev span,
-.orbit-container .orbit-next span {
-    color: white;
-    border: none;
-    font-size: 70px;
-    text-indent: 0;
-    margin-top: -32px;
-}
-  
-.orbit-container .orbit-prev {
-    background-color: rgb(26,154,197);
-    width: 40px;
-	height: 100px;
-	top :40%;
-}
-.orbit-container .orbit-prev span:before {
-    content: "\2039"; 
-}
-.orbit-container .orbit-next {
-    background-color: rgb(26,154,197);
-    width: 40px;
-	height: 100px;
-	top :40%;
-}
-.orbit-container .orbit-next span:before {
-    content: "\203A";
+  width: 100%;
+  border-bottom: 1px solid black;
 }

@@ -44,7 +44,7 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
-app.get('/room-slide',routes.room_slide);
+
 
 
 http.createServer(app).listen(app.get('port'), function(){
