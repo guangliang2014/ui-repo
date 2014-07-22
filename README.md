@@ -10,7 +10,7 @@ template1
 </ul>
 <strong>On the client side</strong>
 <ul>
- <li>BackboneJS</li>
+ <li>BackboneJS, UnderscoreJS and JQuery</li>
  <li>RequireJS</li>
  <li>Foundation5</li>
  <li>Compass & Sass</li>
