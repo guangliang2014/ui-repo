@@ -1,5 +1,7 @@
-$text-default-color : black;
-
-.body {
-	 color : $text-default-color;
-}
+@import
+   "foundation/settings",
+   "foundation/functions",
+   "foundation/foundation",
+   "foundation/normalize"
+   
+    
