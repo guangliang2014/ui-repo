@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>{{title}}</title>
-	<link rel="stylesheet" href="vendor/css/foundation.css">
-	<link rel="stylesheet" href="vendor/css/normalize.css">
-	<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-</head>
-<body>
-   {{{body}}}
-</body>
+    <head>
+        <title>{{title}}</title>
+        <link rel="stylesheet" href="css/foundation.css">
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    </head>
+    <body>
+        {{> navbar }}
+        <div id="main-container" class="row">
+           <div class="small-4 columns column-right">{{> right-column-menu}}</div>
+           <div class="small-8 columns">{{{body}}}</div>
+        </div>
+    </body>
 </html>
 <script type="text/javascript" data-main="js/main" src="vendor/js/require.js"></script>
-

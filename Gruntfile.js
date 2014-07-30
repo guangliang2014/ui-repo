@@ -31,6 +31,5 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-nodemon'); 
 	grunt.loadNpmTasks('grunt-concurrent'); 
 	grunt.loadNpmTasks('grunt-contrib-compass');
-    
     grunt.registerTask('default', ['concurrent:target']);
 } // End wrapper function
