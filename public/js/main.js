@@ -100,7 +100,7 @@ require.config({
         underscore: "../vendor/js/underscore-min",
         backbone: "../vendor/js/backbone-min",
         angular : "../vendor/js/angular.min",
-        handlebars: "vendor/handlebars",
+        handlebars: "../vendor/js/handlebars",
         foundation: "foundation/foundation",
         "foundation.abide": "foundation/foundation.abide",
         "foundation.accordion": "foundation/foundation.accordion",
@@ -118,12 +118,12 @@ require.config({
         "foundation.tab": "foundation/foundation.tab",
         "foundation.tooltip": "foundation/foundation.tooltip",
         "foundation.topbar": "foundation/foundation.topbar",
-        "calendar": "vendor/calendar",
-        "moment": "vendor/moment"
+        "calendar": "../vendor/js/calendar",
+        "moment": "../vendor/js/moment"
     }
 });
 
-require(['jquery','underscore','backbone'],function($, _, Backbone){
+require(['jquery','underscore','backbone','handlebars'],function($, _, Backbone, hbs){
   
     var contentView = Backbone.View.extend({
     	el : "[role='content']",
@@ -131,7 +131,15 @@ require(['jquery','underscore','backbone'],function($, _, Backbone){
     		
     	},
     	render : function (param) {
-           this.$el.html(param.name);
+           if ($('[' + param.template + ']').length) {
+             var target = hbs.compile($('[' + param.template + ']').html());
+             this.$el.html(target({name : 'The super calendar'}));
+             require(['../' + param.path + 'index'],function(module) {
+               module.init();
+             })
+           } else {
+           	 this.$el.html('Page under construction.');
+           }
     	}
     });
 
@@ -140,7 +148,10 @@ require(['jquery','underscore','backbone'],function($, _, Backbone){
     		'arrivaldepartcalendar' : 'calendarController'
     	},
     	calendarController  : function () {
-    		content.render({ name : 'calendar'});
+    		content.render({ 
+    			template : 'arrival-depart-calendar-template',
+    			path : 'modules/arrival-depart-calendar/',
+    		});
     	}
     });
     
