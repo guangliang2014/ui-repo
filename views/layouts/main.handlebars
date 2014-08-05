@@ -1,19 +1,45 @@
 <!DOCTYPE html>
-<html>
+<html ng-app>
     <head>
         <title>{{title}}</title>
         <link rel="stylesheet" href="css/foundation.css">
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-
     </head>
     <body>
-        {{> navbar }}
-        <div id="main-container" class="row">
-           <div class="small-4 columns column-right">{{> right-column-menu}}</div>
-           <div class="small-8 columns">{{{body}}}</div>
+       {{> navbar }}
+
+
+        <div class="row">
+            <aside class="large-3 columns">
+                {{> right-column-menu}}
+            </aside>
+            <div class="large-9 columns" role="content">
+                {{{body}}}
+            </div>  
+
         </div>
-    </body>
-</html>
-<script type="text/javascript" data-main="js/main" src="vendor/js/require.js"></script>
+
+
+        <footer class="row">
+            <div class="large-12 columns">
+                <hr>
+                <div class="row">
+                    <div class="large-6 columns">
+                        <p>© Copyright no one at all. Go to town.</p>
+                    </div>
+                    <div class="large-6 columns">
+                        <ul class="inline-list right">
+                            <li><a href="#">Link 1</a></li>
+                            <li><a href="#">Link 2</a></li>
+                            <li><a href="#">Link 3</a></li>
+                            <li><a href="#">Link 4</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+       </body>
+    </html>
+    <script type="text/javascript" data-main="js/main" src="vendor/js/require.js"></script>

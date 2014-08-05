@@ -2,63 +2,35 @@
    "foundation/settings",
    "foundation/functions",
    "foundation/foundation",
+   "icons",
    "foundation/normalize";
 
 $gray-lite : #ccc;
 $strong : #333333;
 
 #main-container {
-	margin-right: 0px;
-	margin-left : 0px;
+	width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
 
-	.column-right {
-		margin : 0px;
-		padding: 0px;
-	}
+    .menu-container {
+       width: 20%;
+       height: 100%;
+       float: left;
+       border-right: 1px solid #ccc;
+    }
+
+    .body-container {
+       width: 80%;
+       height: 100%;
+       float: right;
+    }
+	
 }  
 
 
-.right-column-container {
-        width: 100%;
-        height: 100%;
-        text-align: center;
 
-        .title {
-        	color: $strong;
-        	text-align: left;
-        	margin-left: 5%;
-        	font-size: 25px;
-        	font-weight: 700;
-        }
-        
-        input.search {
-        	width: 90%;
-        	margin: 10px auto;
-        }
 
-        .widget-container {
-        	 width: 90%;
-        	 height: 100px;
-        	 margin : 10px auto;
-        	 border: 1px solid $gray-lite;
 
-        	 i {
-        	 	margin: 8px 10px;
-        	 	font-size: 80px;
-        	 	color: $gray-lite;
-        	 }
-        	 ul {
-        	 	list-style-type: none;
-				text-align: left;
-				font-size: 80%;
-				margin-top: 5px;
-				color: $strong;
-				font-weight: 700;
-
-				span {
-					color: $gray-lite;
-				}
-        	 }
-
-        }
-    }
+    
