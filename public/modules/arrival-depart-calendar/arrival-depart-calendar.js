@@ -4,29 +4,46 @@
 
 define(["jquery", "backbone" , "handlebars","underscore", "moment", "calendar"], function($, Backbone, hbs, _, moment) {
 
-    var calendarOptions = {};
+    var calendarOptionsModel = Backbone.Model.extend({
+       initialize : function () {
+
+       },
+       defaults : {
+          min : moment(), // today
+          max : moment().add('years',3), // today + 3 years 
+          min_day : 1, max_day : 1024,
+          day_offset : 2,
+       }
+    });
 
     
     var CalendarRangeWidgetView = Backbone.View.extend ({
-       initialize : function () {
-          var initArrive = moment();
-          this.defaultArrive ='2015-02-01';
-          if (initArrive.isBefore(this.defaultArrive)) { initArrive = moment(this.defaultArrive); }
-          var checkInModel =  new dateModel({ type : "Arrive", date : initArrive});
-          var checkOutModel =  new dateModel({ type : "Depart", date : moment(initArrive).add('days',2)});
-          
-          var options = {
-                            checkInDate:  checkInModel.get('date'),
-                            checkOutDate: checkOutModel.get('date')
-                        }
+       initialize : function (param) {
+          /* Setting options values */
+          /********************************************/
+          var initArrive = param.options.get('min');
+          var day_offset = param.options.get('day_offset');
+          /********************************************/
 
+          var checkInModel =  new dateModel({ 
+               type : "Arrive", 
+               date : initArrive, 
+               options : param.options
+          });
+          var checkOutModel =  new dateModel({ 
+               type : "Depart", 
+               date : moment(initArrive).add('days', day_offset),
+               options : param.options
+          });
+          
+          
           this.checkInView = new DayView( { el : '[data-hotel-search-date="check-in"]', model : checkInModel });
           this.checkOutView = new DayView( { el : '[data-hotel-search-date="check-out"]', model : checkOutModel });
 
           this.CalendarArrive = new CalendarView({ el : '[data-hotel-search-calendar="Arrive"]', model : checkInModel });
           this.CalendarDepart = new CalendarView({ el : '[data-hotel-search-calendar="Depart"]', model : checkOutModel});
-          this.CalendarDepart.calendar.options.constraints.startDate = moment(checkOutModel.get('date')).subtract('days',1);
           
+
           $('html').bind('click',this,function (e) {
              if (!($(e.target).parents('.clndr').length || $(e.target).parents('.module-search-bar').length || $(e.target).parents('.clndr-controls').length)) {
                if (e.data.CalendarDepart.isVisible()) { e.data.CalendarDepart.hide(); e.data.checkOutView.$el.toggleClass('selected');}
@@ -54,7 +71,7 @@ define(["jquery", "backbone" , "handlebars","underscore", "moment", "calendar"],
                   this.CalendarDepart.show();
              }
           },this);
-          calendarOptions = options;
+          
 
        }
     });
@@ -67,7 +84,14 @@ define(["jquery", "backbone" , "handlebars","underscore", "moment", "calendar"],
         },
         render : function () {
             var html =  hbs.compile(this.template.html());
-            this.$el.html(html({ type : this.model.get('type') ,day : this.model.get('date').format('ddd'), month : this.model.get('date').format('MMM'), dayofmonth : this.model.get('date').format('D')}));
+            this.$el.html(html({ 
+                type : this.model.get('type'),
+                day : this.model.get('date').format('dddd'),
+                month : this.model.get('date').format('MMM'),
+                monthNumber :  this.model.get('date').format('MM'),
+                dayofmonth : this.model.get('date').format('DD'),
+                year       : this.model.get('date').format('YYYY')
+            }));
             return this;
         },
         events : {
@@ -75,47 +99,47 @@ define(["jquery", "backbone" , "handlebars","underscore", "moment", "calendar"],
 
         },
         onclick : function (e) {
-           this.trigger('click'); 
+          if (this.$(e.target).hasClass('click-target')) {  
+            this.trigger('click'); 
+          }  
         }
 
     });
 
     var CalendarView = Backbone.View.extend({
         initialize : function () {
-           this.$el.css('display','none'); 
+           this.$el.css('display','none');
+           if (this.model.get('type') == 'Arrive') {
+              var startDate = moment(this.model.get('date')).subtract('days',1);
+              var endDate = this.model.get('options').get('max');
+           } else {
+              var startDate = moment().add('days',this.model.get('options').get('min_day'));
+              var endDate = moment().add('days',this.model.get('options').get('max_day'));
+           }
+           var that = this; 
            this.calendar = this.$el.clndr({
                         clickEvents: {
                             click: function(target) {
                                 if (!$(target.element).hasClass('adjacent-month') && !$(target.element).hasClass('past') && !$(target.element).hasClass('inactive')) {
                                   if ($(this.element).attr('data-hotel-search-calendar') == "Arrive") {
-                                    if (!$(target.element).hasClass('beforeDefault')) {
-                                        Clndr_range.checkInView.model.clone(target.date);
-                                        Clndr_range.CalendarArrive.hide();
-                                        Clndr_range.checkInView.$el.toggleClass('selected');
-                                        Clndr_range.CalendarDepart.calendar.options.constraints.startDate = moment(target.date).add('days',1);  
+                                        that.model.clone(target.date);
+                                        that.hide();
+                                        that.$el.toggleClass('selected');
+                                        Clndr_range.CalendarDepart.calendar.options.constraints.startDate = moment(target.date).add('days',that.model.get('options').get('min_day') + 1);
+                                        Clndr_range.CalendarDepart.calendar.options.constraints.endDate = moment(that.model.get('date')).add('days',that.model.get('options').get('max_day'));  
                                         if (target.date.isAfter(moment(Clndr_range.checkOutView.model.get('date')).subtract('days',1))) {
-                                           Clndr_range.checkOutView.model.clone(moment(target.date).add('days',2));
+                                           Clndr_range.checkOutView.model.clone(moment(target.date).add('days',that.model.get('options').get('day_offset')));
                                         }
-                                    } else {
-                                        $('#calendarMsg').foundation('reveal', 'open');
-                                    }    
-
                                   } else {
-                                      Clndr_range.checkOutView.model.clone(target.date);
-                                      Clndr_range.CalendarDepart.hide();
-                                      Clndr_range.checkOutView.$el.toggleClass('selected');
+                                      that.model.clone(target.date);
+                                      that.hide();
+                                      that.$el.toggleClass('selected');
                                   }
                                 } else {
                                     if ($(target.element).hasClass('past')) {
                                        $(target.element).removeClass('Selected-date'); 
                                     }
                                 } 
-                                var options = {
-                                    checkInDate: Clndr_range.checkInView.model.get('date'),
-                                    checkOutDate: Clndr_range.checkOutView.model.get('date')
-                                }
-
-                                $.publish(REVELEX.pubsub.calendar.date.select, [options]);
                             },
                             nextMonth: function(month,e){ 
                                   if ($(this.element).attr('data-hotel-search-calendar') == "Arrive") {
@@ -134,9 +158,8 @@ define(["jquery", "backbone" , "handlebars","underscore", "moment", "calendar"],
                             }
                         },
                         constraints: {
-                            startDate: moment(), 
-                            endDate:   moment(this.model.get('date')).add('years', 3)
-                        }  
+                            startDate: startDate, 
+                            endDate:   endDate                        }  
            });
            
            
@@ -214,8 +237,15 @@ define(["jquery", "backbone" , "handlebars","underscore", "moment", "calendar"],
             return calendarOptions;
         },
         init: function(el) {
-          Clndr_range = new CalendarRangeWidgetView({ el : el });
-          $('.module-search-bar').fadeIn();
+          Clndr_range = new CalendarRangeWidgetView({ 
+              el : el,
+              options : new calendarOptionsModel ({
+                  min_day : 2,
+                  max_day : 10,
+                  day_offset : 5
+              })
+          });
+
         }
     }
 

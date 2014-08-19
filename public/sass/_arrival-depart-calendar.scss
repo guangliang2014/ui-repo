@@ -1,0 +1,125 @@
+$button-font-family-site : 'Arial';
+$site-primary-color: green;
+
+.input-date-icon, .input-date-icon:focus{
+    background-color: white;
+    border: 1px solid #cccccc;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
+    box-sizing: border-box;
+    color: rgba(0, 0, 0, 0.75);
+    display: block; 
+    font-family: inherit;
+    font-size: 0.875rem;
+    height: 2.3125rem; 
+    margin: 0 0 1rem;
+    padding: 0.5rem;
+    transition: box-shadow 0.45s ease 0s, border-color 0.45s ease-in-out 0s;
+    width: 210px !important;   
+}
+
+.input-date-icon, .input-date-icon:focus {
+    background: url("../images/calendar-icon-input.png") no-repeat scroll 95% center white !important;
+    cursor: pointer;
+}
+
+
+.clndr{
+  z-index: 1;
+  position: absolute;
+  font: 600 12px/1em $button-font-family-site; 
+  @include box-shadow(rgba(000,000,000,.15) 0 5px 6px 0);
+  .clndr-controls{
+    background: $site-primary-color;
+    padding: 16px 0;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    font: 600 14px/1em $button-font-family-site;
+    text-align: center;
+    color: #FFF;
+    position: relative;
+    overflow: hidden;
+    margin-top: -1.2em;
+
+
+    .month {
+      padding: 3px 0;
+      text-transform: uppercase; 
+      color: #FFF;
+      text-align: center;
+      white-space: nowrap;
+      width: 100%;
+      position: absolute;
+    }
+
+    .clndr-control-button {
+      float:left;
+      position:relative;
+      z-index: 10;
+      cursor: pointer;
+      &.rightalign{
+        float:right;
+      }
+    }
+
+    .clndr-previous-button,
+    .clndr-next-button {
+      font-family: FontAwesome;
+      color: #FFF;
+    }
+
+    .clndr-previous-button:before {
+      content: "\f104";
+      margin: 0 0 0 10px;
+    }
+
+    .clndr-next-button:before {
+      content: "\f105";
+      margin: 0 10px 0 0;
+    }
+  }
+  .clndr-table {
+    margin-bottom: 0;
+    thead {
+      td,
+      th{
+        color: #A0A0A0;
+      }
+      background: #F5F5F5;
+      color: #A0A0A0;
+    }
+    thead,
+    tbody {
+      td, th {
+        border: 1px solid #E5E5E5;
+      }
+    }
+    tbody{
+      tr{
+        td{
+          color: $site-primary-color;
+          text-align: center;
+          cursor: pointer;
+          &:hover:not(.inactive){
+            background: #E4E4E4;
+          }
+          &.beforeDefault{
+            color: #C8C8C8;
+          }
+          &.last-month,
+          &.next-month {
+            background: #EBEBEB;
+            color: #DBDBDB;
+          }
+          &.selected-date{
+            background: $site-primary-color;
+            color: #FFF;
+          }
+          &.inactive{
+            cursor: normal;
+          }
+        }
+      }
+    }
+  }
+}

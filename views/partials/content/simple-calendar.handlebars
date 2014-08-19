@@ -1,7 +1,4 @@
 <script data-day-template type="text/x-handlebars-template">
-	<div class="unit"><label class="date-type-label">\{{this.type}}</label></div>
-	<span class="date-weekday" data-search-date="date-in-weekday">\{{this.day}}</span>
-	<span class="date-day" data-search-date="date-in-day">\{{this.dayofmonth}}</span>
-	<span class="date-month" data-search-date="date-in-month">\{{this.month}}</span>
-	<i class="fa fa-angle-down light-icon"></i>
+        <label>\{{this.type}}</label> 
+        <input class="input-date-icon click-target" type="text" name="\{{this.type}}" value="\{{this.day}}, \{{this.monthNumber}}/\{{this.dayofmonth}}/\{{this.year}}" disabled>
 </script>

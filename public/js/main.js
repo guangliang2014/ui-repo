@@ -93,7 +93,7 @@ require.config({
         }
     },
     paths: {
-        modernizr: 'vendor/modernizr',
+        modernizr: '../vendor/js/modernizr',
         jquery: [
             '../vendor/js/jquery-2.1.1.min'
         ],
@@ -101,7 +101,8 @@ require.config({
         backbone: "../vendor/js/backbone-min",
         angular : "../vendor/js/angular.min",
         handlebars: "../vendor/js/handlebars",
-        foundation: "foundation/foundation",
+        foundation: "../vendor/js/foundation.min",
+        highligth : "../vendor/js/highlight.pack",
         "foundation.abide": "foundation/foundation.abide",
         "foundation.accordion": "foundation/foundation.accordion",
         "foundation.alert": "foundation/foundation.alert",
@@ -128,14 +129,15 @@ require(['jquery','underscore','backbone','handlebars'],function($, _, Backbone,
     var contentView = Backbone.View.extend({
     	el : "[role='content']",
     	initialize : function () {
-    		
+          		
     	},
     	render : function (param) {
+           var that = this;
            if ($('[' + param.template + ']').length) {
              var target = hbs.compile($('[' + param.template + ']').html());
              this.$el.html(target({name : 'The super calendar'}));
              require(['../' + param.path + 'index'],function(module) {
-               module.init();
+               module.init(that.el);
              })
            } else {
            	 this.$el.html('Page under construction.');
@@ -145,12 +147,19 @@ require(['jquery','underscore','backbone','handlebars'],function($, _, Backbone,
 
     var router = Backbone.Router.extend({
     	routes : {
-    		'arrivaldepartcalendar' : 'calendarController'
+    		'arrivaldepartcalendar' : 'calendarController',
+            'ellipsis' : 'ellipsisController'
     	},
     	calendarController  : function () {
     		content.render({ 
     			template : 'arrival-depart-calendar-template',
     			path : 'modules/arrival-depart-calendar/',
+    		});
+    	},
+        ellipsisController  : function () {
+    		content.render({ 
+    			template : 'ellipsis-template',
+    			path : 'modules/ellipsis/',
     		});
     	}
     });

@@ -1,9 +1,19 @@
+@import "compass/css3";
+
+
+
 @import
    "foundation/settings",
    "foundation/functions",
    "foundation/foundation",
    "icons",
-   "foundation/normalize";
+   "foundation/normalize",
+   "arrival-depart-calendar",
+   "default-highligth"; 
+
+
+   
+
 
 $gray-lite : #ccc;
 $strong : #333333;
@@ -15,7 +25,7 @@ $strong : #333333;
     padding: 0px;
 
     .menu-container {
-       width: 20%;
+       width: 20%; 
        height: 100%;
        float: left;
        border-right: 1px solid #ccc;
@@ -24,11 +34,14 @@ $strong : #333333;
     .body-container {
        width: 80%;
        height: 100%;
-       float: right;
+       float: right; 
     }
 	
 }  
 
+pre {
+  overflow: hidden;
+}
 
 
 
