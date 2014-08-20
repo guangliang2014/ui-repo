@@ -10,15 +10,28 @@
           proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
      </p>
   </div>  
-  <h4>USAGE</h4>
-     <pre>
+  <h4>Usage</h4>
+     [ Javascript ] <pre>
      <code class="javascript">
       $(element).ellipsis({ 
-         showChar : 250, 
-         moreText : 'more', 
-         lessText : 'less', 
-         ellipsisText : '...' 
+         showChar : 250,      // 100 by default
+         moreText : 'more',   // 'more' by default
+         lessText : 'less',   // 'less' by default
+         ellipsisText : '...' // '...' by default
       });
+     </code>
+     </pre>
+     [ CSS ] <pre>
+     <code class="javascript">
+        moreellipsis {
+          // ellipsis text style
+        }
+        morelink {
+          // more text style
+        }
+        less {
+          // less text style
+        }
      </code>
      </pre>
 </script>    
